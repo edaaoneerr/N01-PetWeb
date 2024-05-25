@@ -1,0 +1,143 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+.breadcrumb {
+    margin: 20px;
+}
+
+.product-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    margin: 0 50px;
+}
+
+.product-images {
+    flex: 1;
+    margin-right: 20px;
+}
+
+.main-image {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.main-image img {
+    width: 100%;
+    height: auto;
+}
+
+.free-shipping-tag {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: orange;
+    color: white;
+    padding: 5px;
+    font-weight: bold;
+}
+
+.thumbnail-images img {
+    width: 50px;
+    height: 50px;
+    margin: 5px;
+    cursor: pointer;
+}
+
+.product-details {
+    flex: 2;
+}
+
+.product-details h1 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.rating {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.rating .stars {
+    color: gold;
+    margin-right: 10px;
+}
+
+.price {
+    display: flex;
+    align-items: baseline;
+    margin-bottom: 20px;
+}
+
+.price .old-price {
+    text-decoration: line-through;
+    color: gray;
+    margin-right: 10px;
+}
+
+.price .discount {
+    color: red;
+    margin-right: 10px;
+}
+
+.price .new-price {
+    color: green;
+    font-size: 24px;
+    margin-right: 10px;
+}
+
+.price .installment {
+    color: gray;
+}
+
+.product-info p {
+    margin: 5px 0;
+}
+
+.quantity {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.quantity button {
+    background-color: #ddd;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.quantity input {
+    width: 50px;
+    text-align: center;
+    margin: 0 10px;
+}
+
+.actions {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.actions button {
+    padding: 10px 20px;
+    margin-right: 10px;
+    border: none;
+    cursor: pointer;
+}
+
+.add-to-cart {
+    background-color: green;
+    color: white;
+}
+
+.buy-now {
+    background-color: blue;
+    color: white;
+}
+
+.shipping-info {
+    color: gray;
+}

@@ -1,0 +1,59 @@
+<div id="authModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal fade text-left">
+            <div role="document" class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header d-flex justify-content-between mx-1 mx-sm-3 mb-0 pb-0 border-0">
+                        <div class="tabs active" id="tab01">
+                            <h6 class="text-muted">Giriş Yap</h6>
+                        </div>
+                        <div class="tabs" id="tab02">
+                            <h6 class="font-weight-bold">Üye Ol</h6>
+                        </div>
+                    </div>
+                    <div class="line"></div>
+                    <div class="modal-body-0">
+                        <fieldset class="show" id="tab011">
+                            <form id="login-form">
+                                <div class="form-group">
+                                    <label for="login-email">E-posta</label>
+                                    <input type="email" class="form-control" id="login-email" placeholder="E-posta" value="<%= authInfo.email %>">
+                                </div>
+                                <div class="form-group">
+                                    <label for="login-password">Şifre</label>
+                                    <input type="password" class="form-control" id="login-password" placeholder="Şifre" value="<%= authInfo.password %>">
+                                </div>
+                                <button id="loginButton" type="submit" class="btn btn-primary">Giriş Yap</button>
+                                <a href="#" class="float-right">Şifremi Unuttum</a>
+                                    <input type="checkbox" id="remember-me" name="remember-me" <%= authInfo.email && authInfo.password ? 'checked' : '' %>>
+                                    <label for="remember-me"> Beni Hatırla </label>
+                            </form> 
+                        </fieldset>
+                        <fieldset  id="tab021">
+                            <form>
+                                <div class="form-group">
+                                    <label for="signup-firstname">Adınız</label>
+                                    <input type="text" class="form-control" id="signup-firstname" placeholder="Adınız">
+                                </div>
+                                <div class="form-group">
+                                    <label for="signup-lastname">Soyadınız</label>
+                                    <input type="text" class="form-control" id="signup-lastname" placeholder="Soyadınız">
+                                </div>
+                                <div class="form-group">
+                                    <label for="signup-email">E-posta</label>
+                                    <input type="email" class="form-control" id="signup-email" placeholder="E-posta">
+                                </div>
+                                <div class="form-group">
+                                    <label for="signup-password">Şifre</label>
+                                    <input type="password" class="form-control" id="signup-password" placeholder="Şifre">
+                                </div>
+                                <!-- <div class="form-group">
+                                    <label for="signup-phone">Telefon</label>
+                                    <input type="text" class="form-control" id="signup-phone" placeholder="Telefon">
+                                </div> -->
+                                <button id="registerButton" type="submit" class="btn btn-primary">Üye Ol</button>
+                            </form>
+                        </fieldset>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>

@@ -1,0 +1,74 @@
+body {
+    color: #000;
+    overflow-x: hidden;
+    height: 100%;
+}
+
+.container {
+    margin: 200px auto;
+}
+
+fieldset {
+    display: none;
+}
+
+fieldset.show {
+    display: block;
+}
+
+select:focus, input:focus {
+    font-weight: 400;
+}
+
+button:focus {
+    -moz-box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+    outline-width: 0;
+}
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.tabs {
+    background-color: white;
+    vertical-align: top;
+    cursor: pointer;
+    display: inline-block;
+    flex: 1 1 auto;
+
+}
+
+.tabs:hover, .tabs.active {
+    border-bottom: 1px solid #FF7F00;
+}
+
+a:hover {
+    text-decoration: none;
+    color: #FF7F00;
+}
+
+.box {
+    margin-bottom: 10px;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.line {
+    background-color: #CFD8DC;
+    height: 1px;
+    width: 100%;
+}
+
+.modal-body-0 {
+    padding: 20px;
+
+}
+
+@media screen and (max-width: 768px) {
+    .tabs h6 {
+        font-size: 12px;
+    }
+}

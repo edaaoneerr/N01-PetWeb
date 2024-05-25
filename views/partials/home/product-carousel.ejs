@@ -1,0 +1,59 @@
+<div class="product-carousel-container">
+    <div id="productCarouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            <% for (let i = 0; i < products.length; i += 5) { %>
+                <div class="product-carousel-item carousel-item <%= i === 0 ? 'active' : '' %>">
+                    <div class="row">
+                        <% for (let j = i; j < i + 5 && j < products.length; j++) { %>
+                            <div class="col">
+                                <a href="/product-detail?productId=<%= products[j].productId %>" class="product-card-link">
+                                    <div class="product-card m-2">
+                                        <% if (products[j].productDiscount > 0) { %>
+                                            <div class="discount-rate">-%<%= products[j].productDiscount %></div>
+                                        <% } %>
+                                        <div class="product-image">
+                                            <img src="<%= products[j].productImagePath %>" alt="<%= products[j].productName %>">
+                                            <% if (products[j].productWeight && products[j].productWeight !== '0') { %>
+                                                <div class="product-weight-options">
+                                                    <% products[j].productWeight.split(',').forEach(weight => { %>
+                                                        <% if (weight !== '0') { %>
+                                                            <span><%= weight %></span>
+                                                        <% } %>
+                                                    <% }); %>
+                                                </div>
+                                            <% } %>
+                                        </div>
+                                        <div class="product-info">
+                                            <h5><%= products[j].productName %></h5>
+                                            <p><%= products[j].productDescription %></p>
+                                            <% if (products[j].productDiscount > 0) { %>
+                                                <p class="old-price">₺<%= products[j].productPrice %></p>
+                                            <% } %>
+                                            <p class="product-price">₺<%= (products[j].productPrice - (products[j].productPrice * products[j].productDiscount / 100)).toFixed(2) %></p>
+                                            <% if (products[j].isFreeShipping) { %>
+                                                <p class="free-shipping">Ücretsiz Kargo</p>
+                                            <% } %>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        <% } %>
+                    </div>
+                </div>
+            <% } %>
+        </div>
+        <div class="product-carousel-indicators">
+            <% for (let i = 0; i < Math.ceil(products.length / 5); i++) { %>
+                <button type="button" data-bs-target="#productCarouselExampleIndicators" data-bs-slide-to="<%= i %>" class="<%= i === 0 ? 'active' : '' %>" aria-current="<%= i === 0 %>" aria-label="Slide <%= i + 1 %>"></button>
+            <% } %>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#productCarouselExampleIndicators" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#productCarouselExampleIndicators" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+</div>

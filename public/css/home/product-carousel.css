@@ -1,0 +1,200 @@
+.product-carousel-container {
+    margin: 20px 50px;
+    padding: 0 10px; /* Adjust padding to control space on the sides */
+}
+
+/* Carousel indicators */
+.product-carousel-indicators {
+    text-align: center;
+    position: relative;
+    top: 10px; /* Adjust as needed */
+}
+
+.product-carousel-indicators button {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: #ffffff;
+    border: 1px solid #000000;
+    margin: 2px;
+    z-index: -1;
+}
+
+.product-carousel-indicators .active {
+    background-color: #000000;
+}
+
+/* Product card styles */
+.product-card {
+    text-align: center;
+    width: 97%;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* Changed from space-between to flex-start */
+    align-self: center;
+    align-items: center;
+    box-sizing: border-box;
+    height: 110%; /* Adjust height */
+    padding-bottom: 20px; /* Added padding for spacing */
+    margin: 10px 40px;  /* Increased margin for more space between cards */
+}
+
+.product-card-link {
+    text-decoration: none; /* Remove underline from links */
+    color: inherit; /* Inherit text color */
+}
+
+.product-card .product-image img {
+    border-radius: 8px;
+    object-fit: contain;
+}
+
+.product-card .product-image {
+    position: relative;
+    width: 100%;
+    height: 60%;
+}
+
+.product-card .product-weight-options {
+    position: absolute;
+    bottom: 0.5px;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+}
+
+.product-card .product-weight-options span {
+    background-color: #0044cc;
+    color: #ffffff;
+    padding: 2px;
+    border-radius: 5px;
+    font-weight: bold;
+    width: 100%;
+}
+
+.product-card .discount-rate {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: #ff0000;
+    color: #ffffff;
+    padding: 5px;
+    border-radius: 5px;
+    font-weight: bold;
+    z-index: 1;
+}
+
+.product-card .product-info {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* Ensure all elements are aligned at the top */
+    box-sizing: border-box;
+    flex-grow: 1;
+    padding: 10px;
+}
+
+.product-card h5 {
+    font-size: 1rem;
+    color: #000;
+    margin-top: 5px;
+}
+
+.product-card p {
+    color: #000;
+    margin: 5px 0;
+}
+
+.product-card .old-price {
+    text-decoration: line-through;
+    color: #888;
+    margin-top: 5px;
+    margin-bottom: auto; /* Ensure it aligns at the same level */
+    position: absolute; /* Position it at the same place for all cards */
+    bottom: 55px; /* Adjust as needed to ensure alignment */
+    left: 0;
+    right: 0;
+}
+
+.product-card .product-price {
+    color: green;
+    font-weight: bold;
+    font-size: 1rem;
+    margin-top: 5px;
+    margin-bottom: auto; /* Ensure it aligns at the same level */
+    position: absolute; /* Position it at the same place for all cards */
+    bottom: 35px; /* Adjust as needed to ensure alignment */
+    left: 0;
+    right: 0;
+}
+
+.product-card .free-shipping {
+    color: #0044cc;
+    font-weight: bold;
+    font-size: 0.7rem;
+    border: 1px solid #0044cc;
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 5px; 
+    margin-top: 25px;
+    align-self: center;
+    position: absolute; /* Position it at the bottom for all cards */
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+/* Specific styles for the carousel */
+.product-carousel-inner {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    background-color: pink;
+}
+
+.product-carousel-item {
+    display: none;
+    transition: transform 0.6s ease-in-out;
+}
+
+.product-carousel-item.active {
+    display: block;
+}
+
+.product-carousel-item img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    max-height: 200px;
+    object-fit: fill;
+}
+
+.product-card p, .product-card h5 {
+    min-height: 1em; /* Adjust based on your content */
+}
+
+.carousel-control-prev .carousel-prev-icon{
+    background-color: #000;
+}
+
+.carousel-control-prev span {
+    margin-right: 150px;
+    border-radius: 40px;
+    height: 25px;
+    width: 25px;
+    background-color: grey;
+}
+
+.carousel-control-next span {
+    margin-left: 150px;
+    border-radius: 40px;
+    height: 25px;
+    width: 25px;
+    background-color: grey;
+}

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../partials/navbar/head-scripts') %>
+    <%- include('../partials/navbar/scripts/product-detail/product-detail-scripts') %>
+    <link rel="stylesheet" href="/public/css/product-detail/product-detail.css"> <!-- Add your CSS file here -->
+</head>
+<body>
+    <div class="product-container">
+        <div class="product-images">
+            <div class="main-image">
+                <img id="main-image" src="<%= product.productImagePath %>" alt="<%= product.productName %>">
+                <% if (product.isFreeShipping) { %>
+                    <div class="free-shipping-tag">KARGO BEDAVA</div>
+                <% } %>
+            </div>
+        </div>
+        <div class="product-details">
+            <h1><%= product.productName %></h1>
+            <div class="rating">
+                <span class="stars">⭐⭐⭐⭐⭐</span>
+                <span class="reviews"><%= product.productReviews %></span>
+                <a href="#">Yorum Yaz</a>
+            </div>
+            <div class="price">
+                <span class="old-price">₺<%= product.productPrice %></span>
+                <span class="discount">-%<%= product.productDiscount %></span>
+                <span class="new-price">₺<%= (product.productPrice * (1 - product.productDiscount / 100)).toFixed(2) %></span>
+                <span class="installment"><%= product.installmentInfo %></span>
+            </div>
+            <div class="product-info">
+                <p><strong>Marka:</strong> <%= product.productBrand %></p>
+                <p><strong>Stok Kodu:</strong> <%= product.productStockCode %></p>
+                <p><strong>Barkod:</strong> <%= product.productBarcode %></p>
+                <p><strong>Boyut:</strong> <%= product.productSize %></p>
+            </div>
+            <div class="quantity">
+                <button class="quantity-minus">-</button>
+                <input type="number" value="1" min="1">
+                <button class="quantity-plus">+</button>
+            </div>
+            <div class="actions">
+                <button class="add-to-cart">Sepete Ekle</button>
+                <button class="buy-now">Hemen Al</button>
+            </div>
+            <div class="shipping-info">
+                <p>14 saat 50 dakika 31 saniye içinde sipariş verirseniz yarın kargoda!</p>
+            </div>
+        </div>
+    </div>
+    <script src="/path/to/your/js/file.js"></script> <!-- Add your JS file here -->
+</body>
+</html>
