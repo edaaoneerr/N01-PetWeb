@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../partials/navbar/head-scripts') %>
+    <%- include('../partials/navbar/scripts/blog/blog-scripts') %>
+</head>
+<body>
+    <nav>
+        <%- include('../partials/navbar/promo-navbar') %>
+        <%- include('../partials/navbar/top-navbar', { authInfo: authInfo }) %>
+        <%- include('../partials/navbar/bottom-navbar') %>
+    </nav>
+    <%- include('../partials/home/modal') %>
+    <div class="article-page-container container-fluid">
+        <div class="row">
+            <div class="col-md-9 article-content">
+                <div class="article-container">
+                    <h1 class="title">Veterinerler</h1>
+                    <img class="article-image img-fluid" src="<%= articles[0].articleImagePath %>" alt="<%= articles[0].articleTitle %>">
+                    <a href="blog/<%= articles[0].articleId %>" class="article-title"><%= articles[0].articleTitle %></a>
+                    <div class="article-meta">
+                        <span><%= articles[0].articleDate %></span> | <span><%= articles[0].articleCategory %></span>
+                    </div>
+                    <div class="article-description">
+                        <%= articles[0].articleDescription %>
+                    </div>
+                    <a href="blog/<%= articles[0].articleId %>" class="read-more">Devamını oku</a>
+                </div>
+                <div class="row">
+                    <% articles.slice(1).forEach((article) => { %>
+                        <div class="col-md-6 article-item">
+                            <div class="article-container">
+                                <img class="article-image img-fluid" src="<%= article.articleImagePath %>" alt="<%= article.articleTitle %>">
+                                <a href="blog/<%= article.articleId %>" class="article-title"><%= article.articleTitle %></a>
+                                <div class="article-meta">
+                                    <span><%= article.articleDate %></span> | <span><%= article.articleCategory %></span>
+                                </div>
+                                <div class="article-description">
+                                    <%= article.articleDescription %>
+                                </div>
+                                <a href="blog/<%= article.articleId %>" class="read-more">Devamını oku</a>
+                            </div>
+                        </div>
+                    <% }) %>
+                </div>
+            </div>
+            <div class="col-md-3 article-sidebar">
+                <%- include('../partials/blog/blog-sidebar', { articles: recentArticles }) %>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+    

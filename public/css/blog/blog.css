@@ -1,0 +1,112 @@
+.article-page-container {
+    padding-left: 6%;
+    padding-right: 6%;
+}
+
+.article-container {
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+.title {
+    font-size: 1.5rem;
+    margin: 20px 0;
+    font-weight: 400;
+    color: black;
+    text-decoration: underline;
+    margin-bottom: 4%;
+    text-align: center;
+    display: block;
+}
+
+.article-title {
+    font-size: 1.2rem;
+    margin: 10px 0;
+    font-weight: 400;
+    color: black;
+    text-decoration: none;
+    text-align: left;
+    display: block;
+}
+
+.article-title:hover {
+    text-decoration: underline;
+    color: black;
+}
+
+.article-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+.article-meta {
+    margin-bottom: 10px;
+    color: #666;
+    text-align: left;
+}
+
+.article-description {
+    margin-bottom: 10px;
+    text-align: left;
+}
+
+.read-more {
+    display: block;
+    text-align: left;
+    color: #D35400;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.read-more:hover {
+    text-decoration: underline;
+}
+
+.article-sidebar-article {
+    margin-bottom: 10px;
+}
+
+.article-sidebar {
+    margin-top: 2%;
+    padding-left: 20px;
+    text-align: left;
+}
+
+.article-sidebar-article img {
+    width: 100%;
+    height: auto;
+    margin-bottom: 5px;
+}
+
+.sidebar-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.clinic-name {
+    color: #D35400;
+    font-weight: bold;
+}
+
+.clinic-details {
+    margin-bottom: 20px;
+}
+
+.sidebar-article {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 20px;
+}
+
+.sidebar-article img {
+    width: 100%;
+}
+
+.sidebar-article a {
+    text-align: left;
+    font-weight: bold;
+}

@@ -33,16 +33,15 @@ app.use(session({
 
 // Disable caching
 app.use(express.json());
+
 // Set up the routes
 app.use('/auth', authRoutes);
 app.use('/products', productRoutes);
 app.use('/', appRoutes)
 
+app.use(decryptCookies);
 
-app.get('/', decryptCookies, (req, res) => {
-    let email = req.decryptedEmail || '';
-    let password = req.decryptedPassword || '';
-
+app.get('/', (req, res) => {
     connection.query('SELECT * FROM products', (err, results) => {
         if (err) {
             console.error("Database error:", err);
@@ -51,11 +50,60 @@ app.get('/', decryptCookies, (req, res) => {
 
         res.render("pages/index", {
             pageTitle: "Pet Shop",
-            authInfo: { email, password },
+            authInfo: req.authInfo,
             products: results
         });
     });
 });
+
+app.get('/blog', (req, res) => {
+    
+    connection.query('SELECT * FROM articles WHERE isActive = TRUE', (err, articles) => {
+        if (err) {
+            console.error("Database error:", err);
+            return res.status(500).json({ success: false, message: 'Database error occurred' });
+        }
+        const article = articles[0]
+
+            connection.query('SELECT * FROM articles WHERE isActive = TRUE ORDER BY createdAt DESC LIMIT 5', (err, recentArticles) => {
+                if (err) {
+                    console.error("Database error:", err);
+                    return res.status(500).json({ success: false, message: 'Database error occurred' });
+                }
+
+                res.render('pages/blog', { article, articles, recentArticles, authInfo: req.authInfo });
+            });
+        });
+    });
+
+app.get('/blog/:id', (req, res) => {
+    const articleId = req.params.id;
+    
+    connection.query('SELECT * FROM articles WHERE articleId = ? AND isActive = TRUE', [articleId], (err, articles) => {
+        if (err) {
+            console.error("Database error:", err);
+            return res.status(500).json({ success: false, message: 'Database error occurred' });
+        }
+        const article = articles[0];
+
+        connection.query('SELECT * FROM clinics WHERE articleId = ? AND isActive = TRUE', [articleId], (err, clinics) => {
+            if (err) {
+                console.error("Database error:", err);
+                return res.status(500).json({ success: false, message: 'Database error occurred' });
+            }
+
+            connection.query('SELECT * FROM articles WHERE isActive = TRUE ORDER BY createdAt DESC LIMIT 5', (err, recentArticles) => {
+                if (err) {
+                    console.error("Database error:", err);
+                    return res.status(500).json({ success: false, message: 'Database error occurred' });
+                }
+
+                res.render('pages/article', { article, clinics, recentArticles, authInfo: req.authInfo });
+            });
+        });
+    });
+});
+
 
 
 app.get('/product-detail', productController.getProduct);

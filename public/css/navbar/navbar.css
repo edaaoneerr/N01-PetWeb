@@ -14,6 +14,23 @@
     align-items: start;
     object-fit: contain;
 }
+
+.logo {
+    display: inline-block;  /* Ensure the logo container is inline */
+}
+
+.logo a {
+    display: inline-block;  /* Ensure the link is inline */
+    width: 300px;           /* Adjust width as needed */
+    height: 300px;          /* Adjust height as needed */
+    z-index: 99999999;
+}
+
+.logo object {
+    width: 100%;            /* Make the SVG fit the container */
+    height: 100%;           /* Make the SVG fit the container */
+}
+
 body {
     font-family: Arial, sans-serif;
     background-color: #FFFFFF;

@@ -1,21 +1,10 @@
 <div class="top-navbar">
     <div class="logo">
-        <object class="svg" data="/images/navbar/logo.svg" width="300" height="300"></object>
-    </div>
-     <div class="search-container">
-        <input type="text" placeholder="&#xf002 Ne Aramıştınız?" name="search">
-        <!-- <button class="btn btn-outline-secondary" type="button" id="button-search">
-            <i class="fa fa-search"></i>
-        </button> -->
+        <object id="logo" class="svg" data="/images/navbar/logo.svg" type="image/svg+xml" width="300" height="300"></object>
     </div> 
-    <!-- <div class="search-container">
-        <div class="input-group">
-            <input type="text" class="form-control" placeholder="Ne Aramıştınız?" aria-label="Search" aria-describedby="button-search">
-            <button class="btn btn-outline-secondary" type="button" id="button-search">
-                <i class="fa fa-search"></i>
-            </button>
-        </div>
-    </div> -->
+    <div class="search-container">
+        <input type="text" placeholder="&#xf002 Ne Aramıştınız?" name="search">
+    </div>
     <div class="user-info">
         <a href="/contact" class="dropbtn">İletişim <i class="fa-solid fa-angle-down"></i></a>
         <% if (authInfo && authInfo.email) { %>
@@ -42,3 +31,4 @@
         </div>
     </div>
 </div>
+

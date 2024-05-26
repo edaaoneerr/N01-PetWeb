@@ -164,7 +164,7 @@ exports.logout = (req, res) => {
                 console.log("User Logged Out Successfully");
                 return res.status(201).json({ success: true, message: 'User logged out successfully' });
             });
-        } else {
+        } else { 
             console.log("User Logged Out Successfully");
             return res.status(201).json({ success: true, message: 'User logged out successfully' });
         }

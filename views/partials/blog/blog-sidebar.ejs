@@ -1,0 +1,14 @@
+<div class="sidebar-categories">
+    <h3>Kategoriler</h3>
+    <a href="/blog/category/vets">Veterinerler</a>
+</div>
+<div class="sidebar-recent-articles">
+    <h3>Son Blog Yazıları</h3>
+    <% recentArticles.forEach(article => { %>
+        <div class="sidebar-article">
+            <img src="<%= article.articleImagePath %>" alt="<%= article.articleTitle %>">
+            <a href="/blog/<%= article.articleId %>"><%= article.articleTitle %></a>
+        </div>
+    <% }) %>
+</div>
+</div>

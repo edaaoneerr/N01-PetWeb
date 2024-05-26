@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../partials/navbar/head-scripts') %>
+    <%- include('../partials/navbar/scripts/article/article-scripts') %>
+</head>
+<body>
+    <nav>
+        <%- include('../partials/navbar/promo-navbar') %>
+        <%- include('../partials/navbar/top-navbar', { authInfo: authInfo }) %>
+        <%- include('../partials/navbar/bottom-navbar') %>
+    </nav>
+    <div class="article-page-container container-fluid">
+        <div class="row">
+            <div class="col-md-9 article-content">
+                <div class="article-container">
+                    <h1 class="article-title"><%= article.articleTitle %></h1>
+                    <img class="article-image img-fluid" src="<%= article.articleImagePath %>" alt="<%= article.articleTitle %>">
+                    <div class="article-meta">
+                        <span><%= article.articleDate %></span> | <span><%= article.articleCategory %></span>
+                    </div>
+                    <div class="districts-container">
+                        <h2 class="table-title">Van'da Veteriner Hizmeti Veren Klinikler</h2>
+                        <table class="table-districts">
+                            <% 
+                            let districts = article.articleDistricts.split(',');
+                            for (let i = 0; i < districts.length; i += 5) { %>
+                                <tr>
+                                    <% for (let j = i; j < i + 5; j++) { %>
+                                        <% if (j < districts.length) { %>
+                                            <td><%= districts[j].trim() %></td>
+                                        <% } else { %>
+                                            <td></td>
+                                        <% } %>
+                                    <% } %>
+                                </tr>
+                            <% } %>
+                        </table>
+                        <% let currentDistrict = ''; %>
+                        <% clinics.forEach(clinic => { %>
+                            <% if (clinic.clinicDistrict !== currentDistrict) { %>
+                                <% if (currentDistrict !== '') { %>
+                                    </div>
+                                <% } %>
+                                <h3 class="district-title"><%= clinic.clinicDistrict %> Veteriner Klinikleri</h3>
+                                <div class="district-clinics">
+                                <% currentDistrict = clinic.clinicDistrict; %>
+                            <% } %>
+                            <div class="clinic-item clinic-details">
+                                <strong class="clinic-name"><%= clinic.clinicName %></strong><br>
+                                <span>Çalışma Saatleri: <%= clinic.clinicWorkingHours %></span><br>
+                                <span>Telefon: <%= clinic.clinicPhoneNumber %></span><br>
+                                <span>Adres: <%= clinic.clinicAddress %></span><br>
+                                <a href="https://www.google.com/maps/search/?api=1&query=<%= encodeURIComponent(clinic.clinicAddress) %>" target="_blank">Google Haritalarda Aç</a>
+                            </div>
+                        <% }); %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 article-sidebar">
+                <%- include('../partials/blog/blog-sidebar', { articles: recentArticles }) %>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
