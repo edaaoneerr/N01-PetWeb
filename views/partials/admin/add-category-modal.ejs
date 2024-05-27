@@ -1,0 +1,15 @@
+   <!-- Add Category Modal -->
+   <div id="addCategoryModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal('addCategoryModal')">&times;</span>
+        <h2>Add New Category</h2>
+        <form id="addCategoryForm">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+            <div class="form-group">
+                <label for="categoryName">Title</label>
+                <input type="text" id="categoryName" name="categoryName" placeholder="Enter category name" required>
+            </div>
+            <button id = "addCategoryButton" type="submit" class="btn btn-primary">Add Category</button>
+        </form>
+    </div>
+</div>

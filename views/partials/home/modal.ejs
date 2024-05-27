@@ -13,6 +13,7 @@
                     <div class="modal-body-0">
                         <fieldset class="show" id="tab011">
                             <form id="login-form">
+                                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                                 <div class="form-group">
                                     <label for="login-email">E-posta</label>
                                     <input type="email" class="form-control" id="login-email" placeholder="E-posta" value="<%= authInfo.email %>">
@@ -29,6 +30,7 @@
                         </fieldset>
                         <fieldset  id="tab021">
                             <form>
+                                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                                 <div class="form-group">
                                     <label for="signup-firstname">Adınız</label>
                                     <input type="text" class="form-control" id="signup-firstname" placeholder="Adınız">

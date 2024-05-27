@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
+    const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
     const registerButton = document.getElementById('registerButton');
     if (registerButton) {
         registerButton.addEventListener('click', function(event) {
@@ -19,6 +20,8 @@ document.addEventListener('DOMContentLoaded', function() {
             var xhr = new XMLHttpRequest();
             xhr.open("POST", "/auth/register", true);
             xhr.setRequestHeader("Content-Type", "application/json");
+            xhr.setRequestHeader('CSRF-Token', csrfToken); // Set CSRF token in the request header
+
             
             xhr.onreadystatechange = function () {
                 if (xhr.readyState === 4) {
@@ -50,32 +53,6 @@ document.addEventListener('DOMContentLoaded', function() {
         console.error("Register button not found");
     }
 });
-
-
-// function prefillLoginForm() {
-//     const encryptedEmail = getCookie('rememberEmail');
-//     const encryptedPassword = getCookie('rememberPassword'); 
-
-//     console.log(encryptedEmail, encryptedPassword)
-
-//     if (encryptedEmail && encryptedPassword) {
-//         loginEmailInput.value = decrypt(encryptedEmail);
-//         loginPasswordInput.value = decrypt(encryptedPassword);
-//         rememberMeCheckbox.checked = true;
-//         console.log("Login form filled")
-//     }
-// }
-
-// function decrypt(encryptedText) {
-//     let textParts = encryptedText.split(':');
-//     let iv = Buffer.from(textParts.shift(), 'hex');
-//     let encrypted = Buffer.from(textParts.join(':'), 'hex');
-//     let decipher = crypto.createDecipheriv('aes-256-cbc', Buffer.from(ENCRYPTION_KEY, 'hex'), iv);
-//     let decrypted = decipher.update(encrypted, 'hex', 'utf8');
-//     decrypted += decipher.final('utf8');
-//     console.log("Decrypt: ", decrypted)
-//     return decrypted;
-// }
 
 function deleteCookie(name) {
     document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
@@ -125,6 +102,7 @@ function setCookie(name, value, days) {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
+    const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
     const loginForm = document.getElementById('login-form');
     const loginEmailInput = document.getElementById('login-email');
     const loginPasswordInput = document.getElementById('login-password');
@@ -186,6 +164,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const xhr = new XMLHttpRequest();
         xhr.open('POST', '/auth/login', true);
         xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.setRequestHeader('CSRF-Token', csrfToken); // Set CSRF token in the request header
 
         xhr.onreadystatechange = function() {
             if (xhr.readyState === 4) {

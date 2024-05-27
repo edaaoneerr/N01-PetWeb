@@ -3,6 +3,7 @@
 <head>
     <%- include('../partials/navbar/head-scripts') %>
     <%- include('../partials/navbar/scripts/article/article-scripts') %>
+    <meta name="_csrf" content="<%= csrfToken %>">
 </head>
 <body>
     <nav>
@@ -19,8 +20,9 @@
                     <div class="article-meta">
                         <span><%= article.articleDate %></span> | <span><%= article.articleCategory %></span>
                     </div>
+                    <% if (article.articleCategory === "1") { %>
                     <div class="districts-container">
-                        <h2 class="table-title">Van'da Veteriner Hizmeti Veren Klinikler</h2>
+                        <h2 class="table-title">Veteriner Hizmeti Veren Klinikler</h2>
                         <table class="table-districts">
                             <% 
                             let districts = article.articleDistricts.split(',');
@@ -56,12 +58,18 @@
                         <% }); %>
                         </div>
                     </div>
+                    <% } else { %>
+                    <div class="article-content">
+                        <% article.articleContent %>
+                    </div>
+                    <% } %>
                 </div>
             </div>
             <div class="col-md-3 article-sidebar">
-                <%- include('../partials/blog/blog-sidebar', { articles: recentArticles }) %>
+                <%- include('../partials/blog/blog-sidebar', { categories: categories, recentArticles: recentArticles }) %>
             </div>
         </div>
     </div>
 </body>
 </html>
+

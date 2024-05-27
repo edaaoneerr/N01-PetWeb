@@ -9,11 +9,8 @@ exports.getRegister = (req, res) => {
 };
 
 exports.postLogin = async (req, res) => {
-
-    console.log(req.body)
+    console.log(req.body);
     const { email, password, rememberMe } = req.body;
-
-    console.log(email, password, rememberMe)
 
     connection.query('SELECT * FROM users WHERE userEmail = ?', [email], async (err, results) => {
         if (err) {
@@ -29,20 +26,19 @@ exports.postLogin = async (req, res) => {
         const match = await bcrypt.compare(password, user.userPassword);
         if (match) {
             req.session.isAuth = true;
-            req.session.user = { email };
+            req.session.user = { email, isAdmin: user.isAdmin };
+            req.session.authInfo = { email, password, isAdmin: user.isAdmin };
 
-            if (rememberMe === true){ 
-                console.log("Remember me is true")
+            console.log("Session, is auth: ", req.session.isAuth)
+            console.log("Session, user: ", req.session.user)
+            console.log("Session, authInfo: ", req.session.authInfo)
+
+            if (rememberMe === true) { 
                 const encryptedEmail = encrypt(email);
-                console.log("Encrypted email: ", encryptedEmail)
                 const encryptedPassword = encrypt(password);
-                console.log("Encrypted password: ", encryptedPassword)
-
-                res.cookie('rememberEmail', encrypt(req.body.email), { httpOnly: true, secure: true, maxAge: 30 * 24 * 60 * 60 * 1000 });
-                res.cookie('rememberPassword', encrypt(req.body.password), { httpOnly: true, secure: true, maxAge: 30 * 24 * 60 * 60 * 1000 });
-            }
-            else{
-                console.log("Clearing cookies")
+                res.cookie('rememberEmail', encryptedEmail, { httpOnly: true, secure: true, maxAge: 30 * 24 * 60 * 60 * 1000 });
+                res.cookie('rememberPassword', encryptedPassword, { httpOnly: true, secure: true, maxAge: 30 * 24 * 60 * 60 * 1000 });
+            } else {
                 res.clearCookie("rememberEmail");
                 res.clearCookie("rememberPassword"); 
             }
@@ -51,14 +47,16 @@ exports.postLogin = async (req, res) => {
                 if (err) {
                     console.error("Database error for setting online:", err.message);
                     return res.status(500).json({ success: false, message: 'Database error occurred' });
-                }});
+                }
+            });
             return res.status(200).json({ success: true, message: "Login successful!" });
-
         } else {
             return res.status(401).json({ success: false, message: 'Password is incorrect' });
         }
     });
 };
+
+
 
 exports.autoLogin = (req, res) => {
     const { autoLogin } = req.cookies;

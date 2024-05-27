@@ -1,14 +1,13 @@
 /* Reset styles */
 * {
     margin: 0;
-    padding: 0;
     box-sizing: border-box;
     font-family: 'Roboto';
 }
 
 .logo .svg {
     width: 200px;
-    margin-top: 40px;
+    margin-left:10px;
     justify-content: start;
     align-self: start;
     align-items: start;
@@ -16,14 +15,11 @@
 }
 
 .logo {
-    display: inline-block;  /* Ensure the logo container is inline */
+    display: inline-block;  /* Ensure the logo container is inline */  
 }
 
 .logo a {
     display: inline-block;  /* Ensure the link is inline */
-    width: 300px;           /* Adjust width as needed */
-    height: 300px;          /* Adjust height as needed */
-    z-index: 99999999;
 }
 
 .logo object {
@@ -67,11 +63,13 @@ body {
 .top-navbar {
     display: flex;
     width: 100%;
+    padding-top: 15px;
+    padding-left: 50px;
     height: 80px;
     align-items: center;
     justify-content: space-between; /* Adjusted to space items evenly */
     background-color: #FF7F00;
-    padding: 10px 100px; /* Adjusted padding for better alignment */
+    /* padding: 10px 100px; */
     position: relative;
 }
 

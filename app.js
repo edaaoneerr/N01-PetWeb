@@ -3,15 +3,21 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
-const app = express();
+const SequelizeStore = require('connect-session-sequelize')(session.Store);
+const sequelize = require('./sequelize'); // Import Sequelize instance
 const authRoutes = require('./routes/authRoutes');
 const productRoutes = require('./routes/productRoutes');
 const appRoutes = require('./routes/appRoutes');
-const productController = require("./controllers/productController")
-const connection = require("./server")
-const decryptCookies = require("./middlewares/decryptCookies")
-require('dotenv').config();  // This should be at the very top of your main file
+const adminRoutes = require('./routes/adminRoutes');
+const blogRoutes = require('./routes/blogRoutes');
+const productController = require("./controllers/productController");
+const connection = require("./server");
+const decryptCookies = require("./middlewares/decryptCookies");
+const csurf = require('csurf');
 
+require('dotenv').config();
+
+const app = express();
 
 // Set the view engine to ejs
 app.set('view engine', 'ejs');
@@ -21,25 +27,39 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Middleware
-app.use(express.json());  // This must be placed before any routes that will handle JSON.
+app.use(express.json()); // This must be placed before any routes that will handle JSON.
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
+
+const csrfProtection = csurf({ cookie: true });
+app.use(csrfProtection);
+
+// Session Store
+const sessionStore = new SequelizeStore({
+    db: sequelize,
+});
+
 app.use(session({
     secret: '0274aa0f-76e5-4095-8947-38b206597703',
+    store: sessionStore,
     resave: false,
     saveUninitialized: false,
-    cookie: { maxAge: 60000 } // 1 minute for demo purposes
+    cookie: { maxAge: 30 * 24 * 60 * 60 * 1000 } // 30 days
 }));
+
+// Initialize Sequelize Store
+sessionStore.sync();
 
 // Disable caching
 app.use(express.json());
+app.use(decryptCookies);
 
 // Set up the routes
 app.use('/auth', authRoutes);
 app.use('/products', productRoutes);
-app.use('/', appRoutes)
-
-app.use(decryptCookies);
+app.use('/admin', adminRoutes);
+app.use('/blog', blogRoutes);
+app.use('/', appRoutes);
 
 app.get('/', (req, res) => {
     connection.query('SELECT * FROM products', (err, results) => {
@@ -51,60 +71,11 @@ app.get('/', (req, res) => {
         res.render("pages/index", {
             pageTitle: "Pet Shop",
             authInfo: req.authInfo,
-            products: results
+            products: results,
+            csrfToken: req.csrfToken()
         });
     });
 });
-
-app.get('/blog', (req, res) => {
-    
-    connection.query('SELECT * FROM articles WHERE isActive = TRUE', (err, articles) => {
-        if (err) {
-            console.error("Database error:", err);
-            return res.status(500).json({ success: false, message: 'Database error occurred' });
-        }
-        const article = articles[0]
-
-            connection.query('SELECT * FROM articles WHERE isActive = TRUE ORDER BY createdAt DESC LIMIT 5', (err, recentArticles) => {
-                if (err) {
-                    console.error("Database error:", err);
-                    return res.status(500).json({ success: false, message: 'Database error occurred' });
-                }
-
-                res.render('pages/blog', { article, articles, recentArticles, authInfo: req.authInfo });
-            });
-        });
-    });
-
-app.get('/blog/:id', (req, res) => {
-    const articleId = req.params.id;
-    
-    connection.query('SELECT * FROM articles WHERE articleId = ? AND isActive = TRUE', [articleId], (err, articles) => {
-        if (err) {
-            console.error("Database error:", err);
-            return res.status(500).json({ success: false, message: 'Database error occurred' });
-        }
-        const article = articles[0];
-
-        connection.query('SELECT * FROM clinics WHERE articleId = ? AND isActive = TRUE', [articleId], (err, clinics) => {
-            if (err) {
-                console.error("Database error:", err);
-                return res.status(500).json({ success: false, message: 'Database error occurred' });
-            }
-
-            connection.query('SELECT * FROM articles WHERE isActive = TRUE ORDER BY createdAt DESC LIMIT 5', (err, recentArticles) => {
-                if (err) {
-                    console.error("Database error:", err);
-                    return res.status(500).json({ success: false, message: 'Database error occurred' });
-                }
-
-                res.render('pages/article', { article, clinics, recentArticles, authInfo: req.authInfo });
-            });
-        });
-    });
-});
-
-
 
 app.get('/product-detail', productController.getProduct);
 

@@ -1,0 +1,32 @@
+<!-- Add Article Modal -->
+<div id="addArticleModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal('addArticleModal')">&times;</span>
+        <h2>Add New Article</h2>
+        <form id="addArticleForm">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+            <div class="form-group">
+                <label for="articleTitle">Title</label>
+                <input type="text" id="articleTitle" name="articleTitle" placeholder="Enter title" required>
+            </div>
+            <div class="form-group">
+                <label for="articleImagePath">Image</label>
+                <textarea id="articleImagePath" name="articleImagePath" placeholder="Enter Article Image Path"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="articleDescription">Description</label>
+                <textarea id="articleDescription" name="articleDescription" placeholder="Enter description"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="articleContent">Content</label>
+                <textarea id="articleContent" name="articleContent" placeholder="Enter Article Content"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="articleCategory">Choose Article Category</label>
+                <select id="articleCategory" name="articleCategory" required>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Add Article</button>
+        </form>
+    </div>
+</div>
