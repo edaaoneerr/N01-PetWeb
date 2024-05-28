@@ -11,7 +11,7 @@
     <% recentArticles.forEach(article => { %>
         <div class="sidebar-article">
             <img src="<%= article.articleImagePath %>" alt="<%= article.articleTitle %>">
-            <a href="/blog/<%= article.articleId %>/category/<%= article.articleCategory %>"><%= article.articleTitle %></a>
+            <a href="/blog/<%= article.articleId %>"><%= article.articleTitle %></a>
         </div>
     <% }) %>
 </div>

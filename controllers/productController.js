@@ -41,10 +41,27 @@ exports.getProducts = async (req, res) => {
 };
 
 exports.getProduct = async (req, res) => {
-    const { productId } = req.query;  // Get productId from query parameters
+    const { productId } = req.params; 
     console.log(productId);
 
     connection.query('SELECT * FROM products WHERE productId = ?', [productId], async (err, results) => {
+        if (err) {
+            console.error("Database error:", err);
+            return res.status(500).json({ success: false, message: 'Database error occurred' });
+        }
+
+        const product = results[0];
+        if (!product) {
+            return res.status(404).send('Product not found');
+        }
+        res.render('pages/product-detail', { product });
+    });
+};
+
+exports.getProductBySlug = async (req, res) => {
+    const { slug } = req.params; 
+
+    connection.query('SELECT * FROM products WHERE slug = ?', [slug], async (err, results) => {
         if (err) {
             console.error("Database error:", err);
             return res.status(500).json({ success: false, message: 'Database error occurred' });

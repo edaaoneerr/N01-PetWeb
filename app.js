@@ -13,8 +13,9 @@ const blogRoutes = require('./routes/blogRoutes');
 const productController = require("./controllers/productController");
 const connection = require("./server");
 const decryptCookies = require("./middlewares/decryptCookies");
+const generateSitemap = require("./generate-sitemap")
 const csurf = require('csurf');
-
+const cron = require('node-cron');
 require('dotenv').config();
 
 const app = express();
@@ -32,7 +33,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 const csrfProtection = csurf({ cookie: true });
-app.use(csrfProtection);
 
 // Session Store
 const sessionStore = new SequelizeStore({
@@ -50,6 +50,8 @@ app.use(session({
 // Initialize Sequelize Store
 sessionStore.sync();
 
+app.use(csrfProtection);
+
 // Disable caching
 app.use(express.json());
 app.use(decryptCookies);
@@ -60,6 +62,17 @@ app.use('/products', productRoutes);
 app.use('/admin', adminRoutes);
 app.use('/blog', blogRoutes);
 app.use('/', appRoutes);
+
+cron.schedule('0 0 * * *', () => {
+    console.log('Generating sitemap...');
+    generateSitemap();
+});
+
+app.get('/sitemap.xml', (req, res) => {
+    const sitemapPath = path.resolve(__dirname, 'public', 'sitemap.xml');
+    res.header('Content-Type', 'application/xml');
+    res.sendFile(sitemapPath);
+});
 
 app.get('/', (req, res) => {
     connection.query('SELECT * FROM products', (err, results) => {
@@ -77,7 +90,6 @@ app.get('/', (req, res) => {
     });
 });
 
-app.get('/product-detail', productController.getProduct);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

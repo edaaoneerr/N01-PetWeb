@@ -6,7 +6,7 @@
                     <div class="row">
                         <% for (let j = i; j < i + 5 && j < products.length; j++) { %>
                             <div class="col">
-                                <a href="/product-detail?productId=<%= products[j].productId %>" class="product-card-link">
+                                <a href="/products/product-detail/<%= products[j].productId %>" class="product-card-link">
                                     <div class="product-card m-2">
                                         <% if (products[j].productDiscount > 0) { %>
                                             <div class="discount-rate">-%<%= products[j].productDiscount %></div>

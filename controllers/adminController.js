@@ -1,6 +1,6 @@
-const bcrypt = require('bcrypt');
 const connection = require("../server")
-const { encrypt, decrypt } = require('../public/js/global');
+const { encrypt } = require('../public/js/global');
+const slugify = require('slugify');
 require('dotenv').config();  // This should be at the very top of your main file
 
 exports.getAddArticle = (req, res) => {
@@ -102,9 +102,11 @@ exports.getProducts = (req, res) => {
 
 exports.addCategory = (req, res) => {
     const { categoryName } = req.body;
+    const slug = slugify(categoryName, { lower: true, strict: true });
+
     console.log("Add category, category name: ", categoryName)
-    const query = 'INSERT INTO categories (categoryName) VALUES (?)';
-    connection.query(query, [categoryName], (err, results) => {
+    const query = 'INSERT INTO categories (categoryName, slug) VALUES (?, ?)';
+    connection.query(query, [categoryName, slug], (err, results) => {
         if (err) {
             console.error('Database error:', err);
             return res.status(500).json({ success: false, message: 'Database error occurred' });
@@ -200,4 +202,3 @@ exports.deleteUser = (req, res) => {
         res.status(200).json({ success: true, message: 'User deleted successfully' });
     });
 };
-

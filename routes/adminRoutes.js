@@ -6,14 +6,12 @@ const adminController = require('../controllers/adminController');
 // Protect all routes in this file with the adminCheck middleware
 router.use(adminCheck);
 
-// router.get('/add-article', adminController.getAddArticle);
-// router.post('/add-article', adminController.postAddArticle);
 
-router.get('/', adminCheck, adminController.getInfo);
-router.get('/articles', adminCheck, adminController.getArticles);
-router.get('/categories', adminCheck, adminController.getCategories);
-router.get('/admins', adminCheck, adminController.getAdmins);
-router.get('/products', adminCheck, adminController.getProducts);
+router.get('/', adminController.getInfo);
+router.get('/articles', adminController.getArticles);
+router.get('/categories', adminController.getCategories);
+router.get('/admins', adminController.getAdmins);
+router.get('/products', adminController.getProducts);
 
 router.post('/add-category', adminController.addCategory);
 router.post('/add-product', adminController.addProduct);
